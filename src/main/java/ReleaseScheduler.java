@@ -14,10 +14,9 @@ public class ReleaseScheduler {
     private static final String EXPECTED_OUTPUT_FILE_PATH = "src/resources/output/outputTasks01.txt";
 
     public static void main(String[] args) throws IOException {
-        // Read the input from releases.txt using Stream API
         List<int[]> releases = readInputFile(INPUT_FILE_PATH);
 
-        // Calculate the maximum number of releases Bob can validate
+        // Calculate the maximum number of releases user can validate
         List<int[]> result = calculateValidReleases(releases);
 
         // Validate the calculated result with the expected output
@@ -60,7 +59,7 @@ public class ReleaseScheduler {
     private static void validateOutput(List<int[]> actualResults) throws IOException {
         List<String> expectedLines = Files.readAllLines(Path.of(EXPECTED_OUTPUT_FILE_PATH));
 
-        // Build expected results from the expected output file using Streams
+        // Build expected results from the expected output file
         List<List<Integer>> expectedResults = expectedLines.stream()
                 .skip(1) // Skip the first line (count)
                 .map(line -> {
@@ -79,7 +78,6 @@ public class ReleaseScheduler {
                 .map(release -> List.of(release[0], release[1]))
                 .toList();
 
-        // Use AssertJ for better, more expressive assertions
         Assertions.assertThat(actualResultsList)
                 .as("Comparing the actual output with expected output from files")
                 .isEqualTo(expectedResults);
