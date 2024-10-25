@@ -15,11 +15,7 @@ public class ReleaseScheduler {
 
     public static void main(String[] args) throws IOException {
         List<int[]> releases = readInputFile(INPUT_FILE_PATH);
-
-        // Calculate the maximum number of releases user can validate
         List<int[]> result = calculateValidReleases(releases);
-
-        // Validate the calculated result with the expected output
         validateOutput(result);
     }
 
@@ -33,7 +29,6 @@ public class ReleaseScheduler {
     }
 
     private static List<int[]> calculateValidReleases(List<int[]> releases) {
-        // Sort releases by end date and then by start date
         List<int[]> sortedReleases = releases.stream()
                 .map(release -> new int[]{release[0], release[0] + release[1] - 1}) // Calculate end date
                 .sorted(Comparator.comparingInt((int[] r) -> r[1]) // Sort by end date first
@@ -67,13 +62,11 @@ public class ReleaseScheduler {
                     return List.of(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
                 })
                 .toList();
-
-        // Check that the number of actual results matches the expected count
+        
         Assertions.assertThat(actualResults.size())
                 .as("The number of actual results should match the expected count.")
                 .isEqualTo(Integer.parseInt(expectedLines.get(0)));
 
-        // Convert actual results to List<List<Integer>> using Streams
         List<List<Integer>> actualResultsList = actualResults.stream()
                 .map(release -> List.of(release[0], release[1]))
                 .toList();
