@@ -42,10 +42,9 @@ public class ReleaseScheduler {
             int startDay = release[0];
             int endDay = release[1];
 
-            // Only validate releases that can be finished before the sprint ends
             if (startDay >= currentDay && endDay <= SPRINT_END) {
                 result.add(new int[]{startDay, endDay});
-                currentDay = endDay + 1;  // Update the next available day
+                currentDay = endDay + 1;
             }
         }
         return result;
@@ -54,7 +53,6 @@ public class ReleaseScheduler {
     private static void validateOutput(List<int[]> actualResults) throws IOException {
         List<String> expectedLines = Files.readAllLines(Path.of(EXPECTED_OUTPUT_FILE_PATH));
 
-        // Build expected results from the expected output file
         List<List<Integer>> expectedResults = expectedLines.stream()
                 .skip(1) // Skip the first line (count)
                 .map(line -> {
